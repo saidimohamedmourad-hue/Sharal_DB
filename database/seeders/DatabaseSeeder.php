@@ -91,7 +91,6 @@ class DatabaseSeeder extends Seeder
             }
         
     
-
     // create job applicants
     foreach ($jobApplicants['jobApplications'] as $application) {
         // get random job vacancy
