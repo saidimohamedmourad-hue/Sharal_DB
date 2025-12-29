@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JobCategoryRequest extends FormRequest
+class JobCategoryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,11 @@ class JobCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:job_categories,name',
+            'name' => 'required|string|max:255|unique:job_categories,name,' . $this->route('job_category'),
         ];
+     
     }
-    public function messages(): array
+    function messages(): array
     {
         return [
             'name.required' => 'The category name is required.',
