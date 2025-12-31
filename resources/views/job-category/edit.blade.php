@@ -7,7 +7,7 @@
 
 <div class="overflow-x-auto p-6">
     
-    <form action="{{ route('job-categories.update', $category->id) }}" method="POST"
+    <form action="{{ route('job-category.update', $category->id) }}" method="POST"
      class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
         @csrf
         @method('PUT')
@@ -20,7 +20,7 @@
             @enderror
         </div>
          <div class="flex justify-end space-x-4">
-        <a href="{{ route('job-categories.index') }}"
+        <a href="{{ route('job-category.index') }}"
          class="text-gray-500 hover:text-gray-700">Cancel</a>
          
        

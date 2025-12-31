@@ -12,14 +12,14 @@
     @if (request()->input('archived') == 'true')
     
    <!-- Active-->
-        <a href="{{ route('job-categories.index') }}" 
+        <a href="{{ route('job-category.index') }}" 
         class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
              Active Categories
         </a>
 
     @else
     <!-- Archived-->
-    <a href="{{ route('job-categories.index', ['archived' => 'true']) }}"
+    <a href="{{ route('job-category.index', ['archived' => 'true']) }}"
      class="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black">
         Archived Categories
     </a>
@@ -28,7 +28,7 @@
 
     <!-- Add New Category Button -->
     
-        <a href="{{ route('job-categories.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <a href="{{ route('job-category.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             + Add New Category
         </a>
 </div>
@@ -52,7 +52,7 @@
                     <div class="flex space-x-4">
                         @if (request()->input('archived') == 'true')
                          <!-- restore button -->
-                        <form action="{{ route('job-categories.restore', $category->id) }}" method="POST" class="inline-block">
+                        <form action="{{ route('job-category.restore', $category->id) }}" method="POST" class="inline-block">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="text-green-600 hover:text-green-700">♻️Restore</button>
@@ -61,11 +61,11 @@
                
                         @else
                                  <!-- edit button -->
-                    <a href="{{ route('job-categories.edit', $category->id) }}"
+                    <a href="{{ route('job-category.edit', $category->id) }}"
                      class="text-blue-500 hover:text-blue-700 ">✍️Edit</a>
                         <!-- delete button -->
 
-                    <form action="{{ route('job-categories.destroy', $category->id) }}"
+                    <form action="{{ route('job-category.destroy', $category->id) }}"
                      method="POST" class="inline-block">
                         @csrf
                         @method('DELETE')

@@ -14,16 +14,16 @@ use App\Http\Controllers\CompanyController;
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     //users
-    Route::resource('users', UserController::class );
+    Route::resource('user', UserController::class );
     //job applications
-    Route::resource('job-applications', JobApplicationController::class);
+    Route::resource('job-application', JobApplicationController::class);
     //job categories
-    Route::resource('job-categories', JobCategoryController::class);
-    route::put('job-categories/{id}/restore', [JobCategoryController::class, 'restore'])->name('job-categories.restore');
+    Route::resource('job-category', JobCategoryController::class);
+    route::put('job-category/{id}/restore', [JobCategoryController::class, 'restore'])->name('job-category.restore');
     //job vacancies
-    Route::resource('job-vacancies', JobVacancyController::class);
+    Route::resource('job-vacancy', JobVacancyController::class);
     //companies
-    Route::resource('companies', CompanyController::class);  
+    Route::resource('company', CompanyController::class);  
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -7,7 +7,7 @@
 
 <div class="overflow-x-auto p-6">
     
-    <form action="{{ route('job-categories.store') }}" method="POST" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+    <form action="{{ route('job-category.store') }}" method="POST" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
         @csrf
         <div class="mb-4">
             <label for="name" class="block text-gray-700 font-semibold mb-2">Category Name:</label>
@@ -18,7 +18,7 @@
             @enderror
         </div>
          <div class="flex justify-end space-x-4">
-        <a href="{{ route('job-categories.index') }}"
+        <a href="{{ route('job-category.index') }}"
          class="text-gray-500 hover:text-gray-700">Cancel</a>
          
        
