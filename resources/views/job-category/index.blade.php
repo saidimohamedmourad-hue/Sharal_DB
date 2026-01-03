@@ -36,7 +36,7 @@
    
     
     <!-- Table job categories -->
-    <table class="min-w-full bg-white divide-y border divide-gray-200 rounded-lg shadow-mt-4 bg-white">
+    <table class="min-w-full divide-y border divide-gray-200 rounded-lg shadow-mt-4 bg-white">
         <thead>
             <tr>
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">category name</th>
@@ -48,6 +48,7 @@
             @forelse($categories as $category)
             <tr class="border-b">
                 <td class="px-6 py-4 text-gray-800">{{ $category->name }}</td>
+                
                 <td >
                     <div class="flex space-x-4">
                         @if (request()->input('archived') == 'true')
@@ -56,6 +57,7 @@
                             @csrf
                             @method('PUT')
                             <button type="submit" class="text-green-600 hover:text-green-700">♻️Restore</button>
+                            
                         </form>
                         
                

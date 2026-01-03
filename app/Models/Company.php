@@ -39,5 +39,8 @@ public $incrementing = false;
     public function JobVacancies(){
         return $this->hasMany(JobVacancy::class,'companyId','id');
     }
+    public function JobApplications(){
+        return $this->hasManyThrough(JobApplication::class,JobVacancy::class,'companyId','jobvacancyId','id','id');
+    }
     
 }
