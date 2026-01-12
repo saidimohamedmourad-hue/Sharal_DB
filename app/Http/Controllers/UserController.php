@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserUpdateRequest;
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     public function index(Request $request )
     {
-        return view('user.index');
+        //active
+        $query = User::latest();
+        //archive
+        if($request->input('archived')=='true'){
+            $query->onlyTrashed();
+        }
+
+        $users = $query->paginate(10)->onEachSide(1);
+
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -43,22 +54,42 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       $user = user::findOrFail($id);
+       return view('user.edit',compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id)
     {
-        //
+        
+        $user = user::findOrFail($id);
+        $user->update([
+            'password' => Hash::make($request->input('password')),
+        ]);
+      
+        
+        return redirect()->route('user.index')->with('success', 'password updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+  public function destroy(string $id)
     {
-        //
+        $user = user::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.index')->with('success', 'user archived successfully.');
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     */
+    public function restore(string $id)
+    {
+       $user= user::withTrashed()->findOrFail($id);
+       $user->restore();
+        return redirect()->route('user.index', ['archived' => 'true'])->with('success', 'user restored successfully.');
     }
 }

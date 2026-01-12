@@ -55,13 +55,13 @@
             <ul class="flex space-x-4 ">
                 <li>
                 <a href="{{ route('company.show', ['company' => $company->id, 'tab' => 'jobs']) }}" 
-                class="text-gray-600 hover:text-gray-800 font-medium border-b-2 border-transparent hover:border-gray-300 pb-2 {{ request('tab') == 'jobs' || request('tab') == '' ? 'border-b2 border-blue-900': '' }}"> 
+                class="text-gray-600 hover:text-gray-800 font-medium border-b-2 border-transparent hover:border-gray-300 pb-2 {{ request('tab') == 'jobs' || request('tab') == '' ? 'border-b2 border-blue-700': '' }}"> 
                     Jobs
                 </a>
                 </li>
                 <li>
                 <a href="{{ route('company.show', ['company' => $company->id, 'tab' => 'applications']) }}" 
-                class="text-gray-600 hover:text-gray-800 font-medium border-b-2 border-transparent hover:border-gray-300 pb-2 {{ request('tab') == 'applications' ? 'border-b2 border-blue-900' : '' }}">
+                class="text-gray-600 hover:text-gray-800 font-medium border-b-2 border-transparent hover:border-gray-300 pb-2 {{ request('tab') == 'applications' ? 'border-b2 border-blue-700' : '' }}">
                     Application
                 </a></li>
                 </ul>
@@ -81,7 +81,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($company->jobVacancies as $job)
+                                @forelse ($company->jobVacancies as $job)
                                 <tr>
                                     <td class="px-6 py-4 text-sm text-gray-900">{{ $job->title }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900">{{ $job->type }}</td>
@@ -90,7 +90,11 @@
                                         <a href="{{ route('job-vacancy.show', $job->id) }}" class="text-blue-500 hover:text-blue-700">View</a>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="py-2 px-4 text-center">No jobs </td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                      </div>

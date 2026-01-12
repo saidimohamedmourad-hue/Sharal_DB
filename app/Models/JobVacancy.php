@@ -46,7 +46,7 @@ public $incrementing = false;
         return $this->belongsTo(Company::class,'companyId','id');
     }
 
-    public function jobapplication(){
+    public function jobApplications(){
 
         return $this->hasMany(JobApplication::class,'jobVacancyId','id');
     }
