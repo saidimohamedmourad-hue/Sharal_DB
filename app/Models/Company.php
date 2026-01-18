@@ -40,7 +40,7 @@ public $incrementing = false;
         return $this->hasMany(JobVacancy::class,'companyId','id');
     }
     public function JobApplications(){
-        return $this->hasManyThrough(JobApplication::class,JobVacancy::class,'companyId','jobvacancyId','id','id');
+        return $this->hasManyThrough(JobApplication::class,JobVacancy::class,'companyId','jobVacancyId','id','id');
     }
     
 }

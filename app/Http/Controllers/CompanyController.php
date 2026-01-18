@@ -93,9 +93,13 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
+    public function show(string $id = null)
+    {   if($id){
         $company = Company::findOrFail($id);
+    }else{
+        $company = company::where('ownerId',auth()->user()->id)->first();
+    }
+        
        // $applications = JobApplication::with('user')->wherein('jobvacancyId',$company->jobVacancies->pluck('id'))->get();
         return view('company.show', compact('company', ));
     }
@@ -103,9 +107,13 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id = null)
     {
+         if($id){
         $company = Company::findOrFail($id);
+    }else{
+        $company = company::where('ownerId',auth()->user()->id)->first();
+    }
         $industries = $this-> industries;
         return view('company.edit', compact('company','industries'));
 
@@ -114,10 +122,10 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CompanyUpdateRequest $request, string $id)
+    public function update(CompanyUpdateRequest $request, string $id = null)
     {
         $validated = $request->validated();
-        $company = Company::findOrFail($id);
+        $company = $this->getCompany($id);
          
         //update company info
 
@@ -135,6 +143,9 @@ class CompanyController extends Controller
             $ownerData['password'] = Hash::make($validated['owner_password']);
         }
         $company->owner->update($ownerData);
+       if (auth()->user()->role == 'company-owner'){
+             return redirect()->route('my-company.show')->with('success', 'Company updated successfully.'); 
+        }
 
         if ($request->query('redirectTolist')=='false'){
             return redirect()->route('company.show', $company->id)->with('success', 'Company updated successfully.');
@@ -161,5 +172,12 @@ class CompanyController extends Controller
         $company = Company::withTrashed()->findOrFail($id);
         $company->restore();
         return redirect()->route('company.index', ['archived' => 'true'])->with('success', 'Company restored successfully.');
+    }
+
+    private function getCompany(string $id = null){
+        if($id){
+            return company::findOrFail($id);
+        }
+        return Company::where('ownerId',auth()->user()->id)->first();
     }
 }

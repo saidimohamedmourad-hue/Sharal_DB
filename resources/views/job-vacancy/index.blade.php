@@ -40,7 +40,9 @@
         <thead>
             <tr>
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Title</th>
+            @if (auth()->user()->role == 'admin')
               <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Company</th>
+              @endif
                 <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">location</th>
                   <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">salary</th>
                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Type</th>
@@ -60,8 +62,9 @@
                     href="{{ route('job-vacancy.show', $jobVacancy->id) }}">{{ $jobVacancy->title }}</a>
                     @endif
                 </td>
-                
+                @if (auth()->user()->role == 'admin')
                 <td class="px-6 py-4 text-gray-800">{{ $jobVacancy->company->name }}</td>
+                @endif
                  <td class="px-6 py-4 text-gray-800">{{ $jobVacancy->location }}</td>
                   <td class="px-6 py-4 text-gray-800">${{ number_format($jobVacancy->salary,2) }}</td>
                        <td class="px-6 py-4 text-gray-800">{{ $jobVacancy->type }}</td>

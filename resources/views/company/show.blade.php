@@ -7,11 +7,14 @@
     <div class="overflow-x-auto p-6">
         <x-toast-notification />
 <!-- back button-->
+ 
+            @if (auth()->user()->role == 'admin') 
         <div class="mb-4">
             <a href="{{ route('company.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
                 &larr; Back to Companies
             </a>
         </div>
+        @endif
       <!--wraper-->
 
         <div class="bg-white shadow-md rounded-lg p-6">
@@ -22,7 +25,9 @@
             <div>
                     <p class="text-gray-700"><strong>Owner Name:</strong> {{ $company->owner->name }}</p>
             </div>
-                
+                 <div>
+                    <p class="text-gray-700"><strong>Email:</strong> {{ $company->owner->email }}</p>
+                </div>
                 <div>
                     <p class="text-gray-700"><strong>Address:</strong> {{ $company->address }}</p>
                 </div>
@@ -35,22 +40,35 @@
                 </div>
             </div>
             <!--edit and archived button-->
+            
+           
             <div class="flex justify-end space-x-4 m-6">
+                 @if (auth()->user()->role == 'admin') 
                 <a href="{{ route('company.edit', ['company' => $company->id, 'redirectTolist' => 'false']) }}"
                  class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
                     Edit Company
                 </a>
+                @else
+                  <a href="{{ route('my-company.edit',) }}"
+                 class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    Edit 
+                </a>
+                @endif
 
-        <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="inline-block">
+        
+            @if (auth()->user()->role == 'admin')    
+            <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="inline-block">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
                         Delete Company
                     </button>
                 </form>
-
+            @endif
 </div>
         <!-- tabs navigation-->
+         
+            @if (auth()->user()->role == 'admin') 
          <div class="mb-6">
             <ul class="flex space-x-4 ">
                 <li>
@@ -124,6 +142,7 @@
                             </tbody>
                         </table>
                     </div>
+                    @endif
         </div>
     </div>
 

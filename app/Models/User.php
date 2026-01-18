@@ -60,7 +60,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Resume::class,'userId','id');
     }
-    public function jobapplication (){
+    public function jobApplications (){
         return $this->hasMany(JobApplication::class,'userId','id');
     }
     public function company(){

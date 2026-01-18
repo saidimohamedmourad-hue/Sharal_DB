@@ -21,6 +21,7 @@ public $incrementing = false;
         "description",
         "location",
         "salary",
+        'viewCount',
         "type",
         "jobCategoryId",
         "companyId",
